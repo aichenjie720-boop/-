@@ -74,16 +74,16 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-xs overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-xs overflow-y-auto animate-fade-in"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-100 flex flex-col max-h-[90vh] overflow-hidden">
+      <div className="w-full max-w-2xl bg-white rounded-xl shadow-2xl border border-slate-200 flex flex-col max-h-[90vh] overflow-hidden">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 bg-slate-50">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 bg-slate-50">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
               <Calculator size={18} />
             </div>
             <div>
@@ -94,14 +94,14 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-200/50"
+            className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-200/50 transition-colors"
           >
             <X size={20} />
           </button>
         </div>
 
         {/* Calc Tool Tabs */}
-        <div className="px-5 pt-3 pb-2 border-b border-slate-100 flex gap-2">
+        <div className="px-5 pt-3 pb-2 border-b border-slate-200 bg-slate-50/50 flex gap-2">
           {[
             { id: 'mortgage', label: '房贷月供测算', icon: Home },
             { id: 'savings', label: '定投复利储蓄', icon: TrendingUp },
@@ -133,19 +133,19 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">
+                  <label className="text-xs font-bold text-slate-500 block mb-1">
                     贷款本金 (万元)
                   </label>
                   <input
                     type="number"
                     value={loanPrincipalWan}
                     onChange={(e) => setLoanPrincipalWan(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">
+                  <label className="text-xs font-bold text-slate-500 block mb-1">
                     年利率 (%)
                   </label>
                   <input
@@ -153,18 +153,18 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
                     step="0.01"
                     value={loanRate}
                     onChange={(e) => setLoanRate(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">
+                  <label className="text-xs font-bold text-slate-500 block mb-1">
                     按揭年限 (年)
                   </label>
                   <select
                     value={loanYears}
                     onChange={(e) => setLoanYears(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                   >
                     {[5, 10, 15, 20, 25, 30].map((y) => (
                       <option key={y} value={y}>
@@ -175,7 +175,7 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">
+                  <label className="text-xs font-bold text-slate-500 block mb-1">
                     还款方式
                   </label>
                   <div className="flex gap-2">
@@ -184,8 +184,8 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
                       onClick={() => setRepayMethod('equal_installment')}
                       className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition-all ${
                         repayMethod === 'equal_installment'
-                          ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
-                          : 'border-slate-200 bg-white text-slate-600'
+                          ? 'border-indigo-600 bg-indigo-50 text-indigo-700 font-bold'
+                          : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
                       }`}
                     >
                       等额本息 (每月固定)
@@ -195,8 +195,8 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
                       onClick={() => setRepayMethod('equal_principal')}
                       className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition-all ${
                         repayMethod === 'equal_principal'
-                          ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
-                          : 'border-slate-200 bg-white text-slate-600'
+                          ? 'border-indigo-600 bg-indigo-50 text-indigo-700 font-bold'
+                          : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
                       }`}
                     >
                       等额本金 (逐月递减)
@@ -206,10 +206,10 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
               </div>
 
               {/* Mortgage Result Card */}
-              <div className="p-4 bg-gradient-to-tr from-indigo-50 to-slate-50 rounded-2xl border border-indigo-100 space-y-3">
+              <div className="p-4 bg-indigo-50/50 rounded-xl border border-indigo-100 space-y-3">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
-                  <div className="p-3 bg-white rounded-xl shadow-xs border border-indigo-50">
-                    <div className="text-[11px] text-slate-400">
+                  <div className="p-3 bg-white rounded-xl shadow-2xs border border-slate-200/80">
+                    <div className="text-[11px] text-slate-500 font-semibold">
                       {repayMethod === 'equal_installment' ? '每月固定月供' : '首月还款金额'}
                     </div>
                     <div className="text-lg font-bold font-mono text-indigo-600 mt-0.5">
@@ -222,15 +222,15 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
                     )}
                   </div>
 
-                  <div className="p-3 bg-white rounded-xl shadow-xs border border-indigo-50">
-                    <div className="text-[11px] text-slate-400">还款总额 (本息)</div>
+                  <div className="p-3 bg-white rounded-xl shadow-2xs border border-slate-200/80">
+                    <div className="text-[11px] text-slate-500 font-semibold">还款总额 (本息)</div>
                     <div className="text-lg font-bold font-mono text-slate-800 mt-0.5">
                       {formatCurrency(mortgageResult.totalPayment)}
                     </div>
                   </div>
 
-                  <div className="p-3 bg-white rounded-xl shadow-xs border border-indigo-50">
-                    <div className="text-[11px] text-slate-400">支付利息总额</div>
+                  <div className="p-3 bg-white rounded-xl shadow-2xs border border-slate-200/80">
+                    <div className="text-[11px] text-slate-500 font-semibold">支付利息总额</div>
                     <div className="text-lg font-bold font-mono text-rose-600 mt-0.5">
                       {formatCurrency(mortgageResult.totalInterest)}
                     </div>
@@ -245,31 +245,31 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">
+                  <label className="text-xs font-bold text-slate-500 block mb-1">
                     初始启动储蓄金 (元)
                   </label>
                   <input
                     type="number"
                     value={initialDeposit}
                     onChange={(e) => setInitialDeposit(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">
+                  <label className="text-xs font-bold text-slate-500 block mb-1">
                     每月计划定存追加 (元)
                   </label>
                   <input
                     type="number"
                     value={monthlyDeposit}
                     onChange={(e) => setMonthlyDeposit(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">
+                  <label className="text-xs font-bold text-slate-500 block mb-1">
                     预期年化收益率 (%)
                   </label>
                   <input
@@ -277,18 +277,18 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
                     step="0.1"
                     value={savingsRate}
                     onChange={(e) => setSavingsRate(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">
+                  <label className="text-xs font-bold text-slate-500 block mb-1">
                     积累规划周期 (年)
                   </label>
                   <select
                     value={savingsYears}
                     onChange={(e) => setSavingsYears(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                   >
                     {[1, 3, 5, 10, 15, 20].map((y) => (
                       <option key={y} value={y}>
@@ -300,22 +300,22 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
               </div>
 
               {/* Savings Results */}
-              <div className="p-4 bg-emerald-50/60 rounded-2xl border border-emerald-100 space-y-3">
+              <div className="p-4 bg-emerald-50/60 rounded-xl border border-emerald-100 space-y-3">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
-                  <div className="p-3 bg-white rounded-xl shadow-xs">
-                    <div className="text-[11px] text-slate-400">届时预计总资产</div>
+                  <div className="p-3 bg-white rounded-xl shadow-2xs border border-emerald-100/80">
+                    <div className="text-[11px] text-slate-500 font-semibold">届时预计总资产</div>
                     <div className="text-lg font-bold font-mono text-emerald-600 mt-0.5">
                       {formatCurrency(savingsResult.finalBalance)}
                     </div>
                   </div>
-                  <div className="p-3 bg-white rounded-xl shadow-xs">
-                    <div className="text-[11px] text-slate-400">本金累计投入</div>
+                  <div className="p-3 bg-white rounded-xl shadow-2xs border border-emerald-100/80">
+                    <div className="text-[11px] text-slate-500 font-semibold">本金累计投入</div>
                     <div className="text-lg font-bold font-mono text-slate-800 mt-0.5">
                       {formatCurrency(savingsResult.totalPrincipal)}
                     </div>
                   </div>
-                  <div className="p-3 bg-white rounded-xl shadow-xs">
-                    <div className="text-[11px] text-slate-400">复利增值利息</div>
+                  <div className="p-3 bg-white rounded-xl shadow-2xs border border-emerald-100/80">
+                    <div className="text-[11px] text-slate-500 font-semibold">复利增值利息</div>
                     <div className="text-lg font-bold font-mono text-indigo-600 mt-0.5">
                       {formatCurrency(savingsResult.totalInterest)}
                     </div>
@@ -342,8 +342,8 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
               </div>
 
               <div className="space-y-2 max-h-48 overflow-y-auto">
-                {settlementMembers.map((m, idx) => (
-                  <div key={m.id} className="flex items-center gap-2 text-xs bg-slate-50 p-2 rounded-xl">
+                {settlementMembers.map((m) => (
+                  <div key={m.id} className="flex items-center gap-2 text-xs bg-slate-50 p-2.5 rounded-xl border border-slate-200">
                     <input
                       type="text"
                       value={m.name}
@@ -353,9 +353,9 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
                           prev.map((item) => (item.id === m.id ? { ...item, name: val } : item))
                         );
                       }}
-                      className="w-24 bg-white border border-slate-200 rounded-lg px-2 py-1"
+                      className="w-24 bg-white border border-slate-200 rounded-lg px-2.5 py-1 text-slate-800 font-semibold"
                     />
-                    <span className="text-slate-400">已垫付: ¥</span>
+                    <span className="text-slate-500 font-semibold">已垫付: ¥</span>
                     <input
                       type="number"
                       value={m.paidAmount}
@@ -365,7 +365,7 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
                           prev.map((item) => (item.id === m.id ? { ...item, paidAmount: val } : item))
                         );
                       }}
-                      className="w-28 bg-white border border-slate-200 rounded-lg px-2 py-1 font-mono text-right"
+                      className="w-28 bg-white border border-slate-200 rounded-lg px-2.5 py-1 font-mono text-right font-semibold"
                     />
                     <button
                       onClick={() =>
@@ -386,14 +386,14 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
                   placeholder="新成员名称"
                   value={newMemberName}
                   onChange={(e) => setNewMemberName(e.target.value)}
-                  className="w-24 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1"
+                  className="w-24 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-slate-800"
                 />
                 <input
                   type="number"
                   placeholder="垫付金额"
                   value={newMemberPaid || ''}
                   onChange={(e) => setNewMemberPaid(Number(e.target.value))}
-                  className="w-28 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 font-mono"
+                  className="w-28 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 font-mono text-slate-800"
                 />
                 <button
                   type="button"
@@ -412,23 +412,23 @@ export const FinanceCalculatorModal: React.FC<FinanceCalculatorModalProps> = ({
                       setNewMemberPaid(0);
                     }
                   }}
-                  className="px-3 py-1 bg-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-300"
+                  className="px-3 py-1 bg-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-300"
                 >
                   添加参与人
                 </button>
               </div>
 
               {/* Settlement Transfer Recommendations */}
-              <div className="p-4 bg-indigo-50/60 rounded-2xl border border-indigo-100 space-y-2">
+              <div className="p-4 bg-indigo-50/50 rounded-xl border border-indigo-100 space-y-2">
                 <h5 className="text-xs font-bold text-indigo-900">推荐转账结算方案：</h5>
                 {settlementResult.settlements.length === 0 ? (
-                  <p className="text-xs text-slate-500">账目平衡，各成员无需转账</p>
+                  <p className="text-xs text-slate-500 font-medium">账目平衡，各成员无需转账</p>
                 ) : (
                   <div className="space-y-1.5">
                     {settlementResult.settlements.map((s, i) => (
                       <div
                         key={i}
-                        className="flex items-center justify-between text-xs bg-white p-2.5 rounded-xl shadow-xs border border-indigo-50"
+                        className="flex items-center justify-between text-xs bg-white p-2.5 rounded-xl shadow-2xs border border-indigo-50"
                       >
                         <div className="flex items-center gap-2">
                           <span className="font-bold text-slate-800">{s.from}</span>

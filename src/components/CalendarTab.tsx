@@ -139,15 +139,20 @@ export const CalendarTab: React.FC<CalendarTabProps> = ({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Calendar Grid Container */}
-      <div className="lg:col-span-2 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-4">
+      <div className="lg:col-span-2 bg-white rounded-xl p-5 border border-slate-200 shadow-xs space-y-4 hover:border-slate-300 transition-all">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CalendarIcon className="text-indigo-600" size={20} />
-            <h3 className="text-base font-bold text-slate-800">家庭日历对账视图</h3>
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <CalendarIcon size={17} />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-slate-800">家庭日历对账视图</h3>
+              <p className="text-xs text-slate-400">每日流水直观排布与快速定位</p>
+            </div>
           </div>
 
-          <div className="flex items-center bg-slate-100 p-1 rounded-xl">
+          <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/60">
             <button
               onClick={handlePrevMonth}
               className="p-1 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white transition-colors"
@@ -167,7 +172,7 @@ export const CalendarTab: React.FC<CalendarTabProps> = ({
         </div>
 
         {/* Weekday Header */}
-        <div className="grid grid-cols-7 gap-1 text-center font-medium text-xs text-slate-500 pb-1 border-b border-slate-100">
+        <div className="grid grid-cols-7 gap-1 text-center font-bold text-[11px] text-slate-500 uppercase tracking-wider pb-1 border-b border-slate-100">
           {weekdays.map((w, i) => (
             <div key={w} className={i === 0 || i === 6 ? 'text-rose-500' : ''}>
               {w}
@@ -192,10 +197,10 @@ export const CalendarTab: React.FC<CalendarTabProps> = ({
                 onClick={() => setSelectedDay(cell.dateStr)}
                 className={`h-16 sm:h-20 p-1.5 rounded-xl border flex flex-col justify-between text-left transition-all relative ${
                   isSelected
-                    ? 'border-indigo-600 ring-2 ring-indigo-500/20 bg-indigo-50/30'
+                    ? 'border-indigo-600 ring-2 ring-indigo-500/20 bg-indigo-50/40 shadow-xs'
                     : hasExpense && (cell.expense || 0) > 500
                     ? 'border-rose-200 bg-rose-50/30 hover:border-rose-300'
-                    : 'border-slate-200/70 bg-white hover:bg-slate-50'
+                    : 'border-slate-200 bg-white hover:bg-slate-50/80 hover:border-slate-300'
                 }`}
               >
                 <div className="flex items-center justify-between w-full">
@@ -207,7 +212,7 @@ export const CalendarTab: React.FC<CalendarTabProps> = ({
                     {cell.dayNum}
                   </span>
                   {cell.count && cell.count > 0 ? (
-                    <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
+                    <span className="text-[10px] text-slate-400 font-mono hidden sm:inline font-medium">
                       {cell.count}笔
                     </span>
                   ) : null}
@@ -232,7 +237,7 @@ export const CalendarTab: React.FC<CalendarTabProps> = ({
       </div>
 
       {/* Selected Day Detail Sidebar */}
-      <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col justify-between space-y-4">
+      <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between space-y-4 hover:border-slate-300 transition-all">
         <div>
           {/* Header */}
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
@@ -243,23 +248,23 @@ export const CalendarTab: React.FC<CalendarTabProps> = ({
 
             <button
               onClick={() => onOpenNewTransactionForDate(selectedDay)}
-              className="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-1 shadow-xs"
+              className="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-1 shadow-sm shadow-indigo-600/20 active:scale-95"
             >
               <Plus size={14} /> 记此日账目
             </button>
           </div>
 
           {/* Day Totals Summary */}
-          <div className="grid grid-cols-2 gap-3 my-4 p-3 bg-slate-50 rounded-xl border border-slate-200/60 font-mono text-xs">
+          <div className="grid grid-cols-2 gap-3 my-4 p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 font-mono text-xs">
             <div>
-              <span className="text-slate-400 text-[11px] block">当日支出</span>
-              <span className="font-bold text-rose-600 text-sm">
+              <span className="text-slate-400 text-[11px] block font-sans font-semibold">当日支出</span>
+              <span className="font-bold text-rose-600 text-base">
                 {formatCurrency(selectedDayExpense)}
               </span>
             </div>
             <div>
-              <span className="text-slate-400 text-[11px] block">当日收入</span>
-              <span className="font-bold text-emerald-600 text-sm">
+              <span className="text-slate-400 text-[11px] block font-sans font-semibold">当日收入</span>
+              <span className="font-bold text-emerald-600 text-base">
                 {formatCurrency(selectedDayIncome)}
               </span>
             </div>
@@ -282,11 +287,11 @@ export const CalendarTab: React.FC<CalendarTabProps> = ({
                 return (
                   <div
                     key={tx.id}
-                    className="p-3 bg-slate-50/80 rounded-xl border border-slate-200/60 flex items-center justify-between hover:bg-slate-100/70 transition-colors group"
+                    className="p-3 bg-slate-50/80 rounded-xl border border-slate-200/80 flex items-center justify-between hover:bg-slate-100/70 transition-colors group"
                   >
                     <div className="flex items-center gap-2.5">
                       <div
-                        className="w-8 h-8 rounded-lg flex items-center justify-center text-white shrink-0 shadow-xs"
+                        className="w-8 h-8 rounded-lg flex items-center justify-center text-white shrink-0 shadow-2xs"
                         style={{
                           backgroundColor:
                             tx.type === 'transfer' ? '#6366F1' : cat?.color || '#94A3B8',
@@ -303,7 +308,7 @@ export const CalendarTab: React.FC<CalendarTabProps> = ({
                               : cat?.name || '未分类'}
                           </span>
                           {tx.subCategory && (
-                            <span className="text-[10px] bg-white border border-slate-200 text-slate-600 px-1 rounded">
+                            <span className="text-[10px] bg-white border border-slate-200 text-slate-600 px-1 rounded font-medium">
                               {tx.subCategory}
                             </span>
                           )}

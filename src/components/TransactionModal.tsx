@@ -208,11 +208,11 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
     >
       <div
         id="transaction-modal-container"
-        className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-100 flex flex-col max-h-[92vh] overflow-hidden"
+        className="w-full max-w-2xl bg-white rounded-xl shadow-2xl border border-slate-200 flex flex-col max-h-[92vh] overflow-hidden"
       >
         {/* Header with Type Selector */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 bg-slate-50/70">
-          <div className="flex bg-slate-200/80 p-1 rounded-xl">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 bg-slate-50">
+          <div className="flex bg-slate-200/70 p-1 rounded-xl border border-slate-200">
             <button
               id="type-btn-expense"
               type="button"
@@ -224,10 +224,10 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                   setSelectedSubCategory(expCat.subcategories?.[0] || '');
                 }
               }}
-              className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+              className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${
                 type === 'expense'
                   ? 'bg-rose-500 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  : 'text-slate-600 hover:text-slate-900 font-medium'
               }`}
             >
               支出
@@ -243,10 +243,10 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                   setSelectedSubCategory(incCat.subcategories?.[0] || '');
                 }
               }}
-              className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+              className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${
                 type === 'income'
                   ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  : 'text-slate-600 hover:text-slate-900 font-medium'
               }`}
             >
               收入
@@ -255,10 +255,10 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               id="type-btn-transfer"
               type="button"
               onClick={() => setType('transfer')}
-              className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+              className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${
                 type === 'transfer'
                   ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  : 'text-slate-600 hover:text-slate-900 font-medium'
               }`}
             >
               转账
@@ -266,7 +266,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500 font-normal hidden sm:inline">
+            <span className="text-xs text-slate-500 font-medium hidden sm:inline">
               {editingTransaction ? '编辑账目' : '新建记录'}
             </span>
             <button
@@ -282,12 +282,12 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
         {/* Scrollable Content Body */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
           {/* Amount Display & Keypad Preview */}
-          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div className="flex-1 w-full">
-              <div className="text-xs font-medium text-slate-500 mb-1 flex items-center justify-between">
+              <div className="text-xs font-semibold text-slate-500 mb-1 flex items-center justify-between">
                 <span>金额 ({type === 'expense' ? '支出' : type === 'income' ? '收入' : '转账'})</span>
                 {amountStr && (
-                  <span className="text-xs text-slate-400 font-mono">
+                  <span className="text-xs text-slate-500 font-mono">
                     计算结果: {formatCurrency(computedAmount)}
                   </span>
                 )}
@@ -318,7 +318,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             <button
               type="button"
               onClick={() => setShowKeypad(!showKeypad)}
-              className="px-3 py-1.5 text-xs font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors shrink-0"
+              className="px-3 py-1.5 text-xs font-semibold text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors shrink-0 shadow-2xs"
             >
               {showKeypad ? '收起数字键盘' : '展开数字键盘'}
             </button>
@@ -326,7 +326,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
 
           {/* Quick Calculator Keypad */}
           {showKeypad && (
-            <div className="grid grid-cols-4 gap-2 bg-slate-100/70 p-3 rounded-xl border border-slate-200/60">
+            <div className="grid grid-cols-4 gap-2 bg-slate-100/80 p-3 rounded-xl border border-slate-200">
               {['7', '8', '9', '/'].map((k) => (
                 <button
                   key={k}
@@ -335,7 +335,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                   className={`h-11 rounded-lg font-mono text-base font-semibold transition-all active:scale-95 ${
                     k === '/'
                       ? 'bg-slate-200 text-indigo-700 hover:bg-slate-300'
-                      : 'bg-white text-slate-800 shadow-xs hover:bg-slate-50'
+                      : 'bg-white text-slate-800 shadow-xs hover:bg-slate-50 border border-slate-200/50'
                   }`}
                 >
                   {k === '/' ? '÷' : k}
@@ -349,7 +349,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                   className={`h-11 rounded-lg font-mono text-base font-semibold transition-all active:scale-95 ${
                     k === '*'
                       ? 'bg-slate-200 text-indigo-700 hover:bg-slate-300'
-                      : 'bg-white text-slate-800 shadow-xs hover:bg-slate-50'
+                      : 'bg-white text-slate-800 shadow-xs hover:bg-slate-50 border border-slate-200/50'
                   }`}
                 >
                   {k === '*' ? '×' : k}
@@ -363,7 +363,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                   className={`h-11 rounded-lg font-mono text-base font-semibold transition-all active:scale-95 ${
                     k === '-'
                       ? 'bg-slate-200 text-indigo-700 hover:bg-slate-300'
-                      : 'bg-white text-slate-800 shadow-xs hover:bg-slate-50'
+                      : 'bg-white text-slate-800 shadow-xs hover:bg-slate-50 border border-slate-200/50'
                   }`}
                 >
                   {k}
@@ -379,7 +379,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                       ? 'bg-rose-100 text-rose-700 hover:bg-rose-200'
                       : k === '+'
                       ? 'bg-slate-200 text-indigo-700 hover:bg-slate-300'
-                      : 'bg-white text-slate-800 shadow-xs hover:bg-slate-50'
+                      : 'bg-white text-slate-800 shadow-xs hover:bg-slate-50 border border-slate-200/50'
                   }`}
                 >
                   {k}
@@ -391,7 +391,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           {/* Category Picker (For Expense & Income) */}
           {type !== 'transfer' && (
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
                 选择分类
               </label>
               <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 max-h-48 overflow-y-auto p-1">
@@ -407,12 +407,12 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                       }}
                       className={`flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all ${
                         isSelected
-                          ? 'border-indigo-600 bg-indigo-50/80 text-indigo-900 font-medium shadow-xs scale-102'
+                          ? 'border-indigo-600 bg-indigo-50/80 text-indigo-900 font-semibold shadow-xs'
                           : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
                       }`}
                     >
                       <div
-                        className="w-9 h-9 rounded-full flex items-center justify-center mb-1 text-white shadow-xs"
+                        className="w-9 h-9 rounded-lg flex items-center justify-center mb-1 text-white shadow-2xs"
                         style={{ backgroundColor: cat.color }}
                       >
                         <CategoryIcon name={cat.icon} size={18} />
@@ -426,7 +426,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               {/* Subcategories */}
               {currentCategory && currentCategory.subcategories && currentCategory.subcategories.length > 0 && (
                 <div className="pt-2">
-                  <div className="text-xs text-slate-400 mb-1.5">二级明细（可选）:</div>
+                  <div className="text-xs text-slate-500 font-semibold mb-1.5">二级明细（可选）:</div>
                   <div className="flex flex-wrap gap-1.5">
                     {currentCategory.subcategories.map((sub) => {
                       const isSubSelected = selectedSubCategory === sub;
@@ -437,7 +437,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                           onClick={() => setSelectedSubCategory(isSubSelected ? '' : sub)}
                           className={`px-2.5 py-1 rounded-lg text-xs transition-all ${
                             isSubSelected
-                              ? 'bg-indigo-600 text-white font-medium shadow-xs'
+                              ? 'bg-indigo-600 text-white font-semibold shadow-xs'
                               : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                           }`}
                         >
@@ -455,7 +455,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Member Selector */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
                 <User size={14} /> 归属成员 / 使用人
               </label>
               <div className="flex flex-wrap gap-1.5">
@@ -485,14 +485,14 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
 
             {/* Account Selector */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
                 <Wallet size={14} /> {type === 'transfer' ? '转出账户' : '支付/收入账户'}
               </label>
               <select
                 id="transaction-account-select"
                 value={selectedAccountId}
                 onChange={(e) => setSelectedAccountId(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               >
                 {accounts.map((acc) => (
                   <option key={acc.id} value={acc.id}>
@@ -505,15 +505,15 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
 
           {/* Transfer Target Account (if transfer) */}
           {type === 'transfer' && (
-            <div className="space-y-1.5 p-3 bg-indigo-50/50 rounded-xl border border-indigo-100">
-              <label className="text-xs font-semibold text-indigo-900 uppercase tracking-wider flex items-center gap-1.5">
+            <div className="space-y-1.5 p-3.5 bg-indigo-50/50 rounded-xl border border-indigo-100">
+              <label className="text-xs font-bold text-indigo-900 uppercase tracking-wider flex items-center gap-1.5">
                 <ArrowRightLeft size={14} /> 转入目标账户
               </label>
               <select
                 id="transaction-to-account-select"
                 value={selectedToAccountId}
                 onChange={(e) => setSelectedToAccountId(e.target.value)}
-                className="w-full bg-white border border-indigo-200 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full bg-white border border-indigo-200 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               >
                 {accounts
                   .filter((a) => a.id !== selectedAccountId)
@@ -529,7 +529,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           {/* Date & Time Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
                 <Calendar size={14} /> 记账日期
               </label>
               <input
@@ -537,11 +537,11 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
                 <Clock size={14} /> 时间
               </label>
               <input
@@ -549,14 +549,14 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               />
             </div>
           </div>
 
           {/* Notes & Description */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
               <FileText size={14} /> 备注说明
             </label>
             <input
@@ -565,13 +565,13 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="添加简要备注（如：周末买菜、山姆会员店等）"
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-slate-400"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 placeholder-slate-400"
             />
           </div>
 
           {/* Tags */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
               <Tag size={14} /> 快捷标签
             </label>
             <div className="flex flex-wrap gap-1.5 items-center">
@@ -584,8 +584,8 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                     onClick={() => handleToggleTag(t)}
                     className={`px-2.5 py-1 rounded-lg text-xs transition-all ${
                       isSelected
-                        ? 'bg-slate-800 text-white font-medium shadow-xs'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        ? 'bg-slate-800 text-white font-semibold shadow-xs'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium'
                     }`}
                   >
                     #{t}
@@ -600,7 +600,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                     key={t}
                     type="button"
                     onClick={() => handleToggleTag(t)}
-                    className="px-2.5 py-1 rounded-lg text-xs bg-indigo-600 text-white font-medium flex items-center gap-1"
+                    className="px-2.5 py-1 rounded-lg text-xs bg-indigo-600 text-white font-semibold flex items-center gap-1 shadow-2xs"
                   >
                     #{t} <X size={12} />
                   </button>
@@ -619,12 +619,12 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                   }
                 }}
                 placeholder="+ 自定义标签"
-                className="text-xs bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="text-xs bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               />
               <button
                 type="button"
                 onClick={handleAddCustomTag}
-                className="px-2.5 py-1.5 text-xs bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300"
+                className="px-2.5 py-1.5 text-xs bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 font-medium"
               >
                 添加
               </button>
@@ -633,11 +633,11 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="px-5 py-4 border-t border-slate-100 bg-slate-50/80 flex items-center justify-between gap-3">
+        <div className="px-5 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between gap-3">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-sm font-medium hover:bg-white transition-colors"
+            className="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-xs sm:text-sm font-semibold hover:bg-white transition-colors"
           >
             取消
           </button>
@@ -648,7 +648,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                 id="btn-save-and-continue"
                 type="button"
                 onClick={() => handleSubmit(true)}
-                className="px-4 py-2.5 rounded-xl bg-slate-200 text-slate-800 text-sm font-semibold hover:bg-slate-300 transition-colors flex items-center gap-1.5"
+                className="px-4 py-2 rounded-xl bg-slate-200 text-slate-800 text-xs sm:text-sm font-semibold hover:bg-slate-300 transition-colors flex items-center gap-1.5"
               >
                 <Plus size={16} /> 再记一笔
               </button>
@@ -657,7 +657,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               id="btn-save-transaction"
               type="button"
               onClick={() => handleSubmit(false)}
-              className="px-6 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 shadow-md shadow-indigo-600/20 transition-all flex items-center gap-1.5"
+              className="px-6 py-2 rounded-xl bg-indigo-600 text-white text-xs sm:text-sm font-semibold hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 transition-all flex items-center gap-1.5 active:scale-95"
             >
               <Check size={16} /> {editingTransaction ? '保存修改' : '确认记账'}
             </button>

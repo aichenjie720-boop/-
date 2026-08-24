@@ -172,31 +172,31 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Assets Snapshot */}
-      <div className="bg-gradient-to-r from-slate-900 to-indigo-950 rounded-2xl p-6 text-white shadow-md">
+      <div className="bg-slate-900 rounded-xl p-6 text-white shadow-xs border border-slate-800">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <span className="text-xs font-semibold text-indigo-300 uppercase tracking-wider">
+            <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider">
               家庭净资产总额 (Net Worth)
             </span>
             <div className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight mt-1">
               {formatCurrency(netWorth)}
             </div>
-            <p className="text-xs text-indigo-200/70 mt-1">
+            <p className="text-xs text-slate-400 mt-1">
               由微信、支付宝、银行储蓄卡扣除信用卡欠款得出
             </p>
           </div>
 
-          <div className="flex items-center gap-4 bg-white/10 p-3.5 rounded-xl backdrop-blur-xs font-mono text-xs">
+          <div className="flex items-center gap-4 bg-slate-800/80 border border-slate-700/60 p-3.5 rounded-xl font-mono text-xs">
             <div>
-              <span className="text-indigo-200 text-[11px] block">总资金资产</span>
-              <span className="text-emerald-400 font-bold text-sm">
+              <span className="text-slate-400 text-[11px] block font-sans font-semibold">总资金资产</span>
+              <span className="text-emerald-400 font-bold text-base">
                 {formatCurrency(totalAssets)}
               </span>
             </div>
-            <div className="h-6 w-px bg-white/20" />
+            <div className="h-6 w-px bg-slate-700" />
             <div>
-              <span className="text-indigo-200 text-[11px] block">信用卡待还负债</span>
-              <span className="text-rose-400 font-bold text-sm">
+              <span className="text-slate-400 text-[11px] block font-sans font-semibold">信用卡待还负债</span>
+              <span className="text-rose-400 font-bold text-base">
                 {formatCurrency(totalLiabilities)}
               </span>
             </div>
@@ -205,23 +205,28 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
       </div>
 
       {/* Account Cards Section */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-xs space-y-4 hover:border-slate-300 transition-all">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Wallet className="text-indigo-600" size={20} />
-            <h3 className="text-base font-bold text-slate-800">家庭支付与资金账户</h3>
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <Wallet size={18} />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-slate-800">家庭支付与资金账户</h3>
+              <p className="text-xs text-slate-400">微信、支付宝、银行卡与现金集中对账</p>
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={onOpenTransferModal}
-              className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-200 transition-colors flex items-center gap-1"
+              className="px-3 py-1.5 border border-slate-200 text-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-50 transition-colors flex items-center gap-1 active:scale-95"
             >
               <ArrowRightLeft size={13} /> 账户间转账
             </button>
             <button
               onClick={openAddAccount}
-              className="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-1 shadow-xs"
+              className="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-1 shadow-sm shadow-indigo-600/20 active:scale-95"
             >
               <Plus size={13} /> 新建账户
             </button>
@@ -234,12 +239,12 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
             return (
               <div
                 key={acc.id}
-                className="p-4 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-slate-50 transition-all flex flex-col justify-between space-y-3 group"
+                className="p-4 rounded-xl border border-slate-200 bg-slate-50/80 hover:bg-slate-100/60 transition-all flex flex-col justify-between space-y-3 group"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-xs"
+                      className="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-2xs"
                       style={{ backgroundColor: acc.color }}
                     >
                       <CategoryIcon name={acc.icon} size={20} />
@@ -248,7 +253,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
                       <div className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
                         <span>{acc.name}</span>
                         {acc.cardLast4 && (
-                          <span className="text-[10px] bg-slate-200 text-slate-600 px-1 rounded font-mono">
+                          <span className="text-[10px] bg-slate-200/80 text-slate-600 px-1 rounded font-mono">
                             *{acc.cardLast4}
                           </span>
                         )}
@@ -287,8 +292,8 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-slate-200/60 flex items-baseline justify-between font-mono">
-                  <span className="text-xs text-slate-400">
+                <div className="pt-2 border-t border-slate-200/80 flex items-baseline justify-between font-mono">
+                  <span className="text-xs text-slate-500 font-sans">
                     {isCredit ? '当前已出欠款:' : '当前可用余额:'}
                   </span>
                   <span
@@ -310,16 +315,21 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
       </div>
 
       {/* Family Members Section */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-xs space-y-4 hover:border-slate-300 transition-all">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="text-indigo-600" size={20} />
-            <h3 className="text-base font-bold text-slate-800">家庭成员列表</h3>
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <Users size={18} />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-slate-800">家庭成员列表</h3>
+              <p className="text-xs text-slate-400">支持按角色区分家庭成员流水与消费习惯</p>
+            </div>
           </div>
 
           <button
             onClick={openAddMember}
-            className="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-1 shadow-xs"
+            className="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-1 shadow-sm shadow-indigo-600/20 active:scale-95"
           >
             <UserPlus size={13} /> 添加成员
           </button>
@@ -329,10 +339,10 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
           {members.map((mem) => (
             <div
               key={mem.id}
-              className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex flex-col items-center text-center space-y-2 group relative"
+              className="p-4 rounded-xl border border-slate-200 bg-slate-50/80 flex flex-col items-center text-center space-y-2 group relative hover:bg-slate-100/60 transition-all"
             >
               <div
-                className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-base shadow-xs"
+                className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-base shadow-2xs"
                 style={{ backgroundColor: mem.avatarColor }}
               >
                 {mem.name.slice(0, 1)}
@@ -366,7 +376,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
       {/* Add / Edit Account Modal */}
       {isAccountModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-5 space-y-4">
+          <div className="w-full max-w-md bg-white rounded-xl shadow-2xl border border-slate-200 p-5 space-y-4">
             <h3 className="text-sm font-bold text-slate-900">
               {editingAccountId ? '编辑账户' : '新增支付/资金账户'}
             </h3>
@@ -379,7 +389,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
                   value={accName}
                   onChange={(e) => setAccName(e.target.value)}
                   placeholder="例如：招商银行工资卡、微信零钱通等"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                 />
               </div>
 
@@ -388,7 +398,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
                 <select
                   value={accType}
                   onChange={(e) => setAccType(e.target.value as any)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                 >
                   <option value="bank">银行借记卡 / 储蓄卡</option>
                   <option value="wechat">微信支付</option>
@@ -406,7 +416,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
                   value={accBalance}
                   onChange={(e) => setAccBalance(Number(e.target.value))}
                   placeholder="0.00"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono text-slate-800 focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                 />
               </div>
 
@@ -418,7 +428,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
                   maxLength={4}
                   onChange={(e) => setAccCardLast4(e.target.value)}
                   placeholder="例如：8826"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono text-slate-800 focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                 />
               </div>
 
@@ -440,7 +450,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
               </div>
             </div>
 
-            <div className="pt-2 flex justify-end gap-2">
+            <div className="pt-2 flex justify-end gap-2 border-t border-slate-100">
               <button
                 onClick={() => setIsAccountModalOpen(false)}
                 className="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100"
@@ -449,7 +459,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
               </button>
               <button
                 onClick={handleSaveAccount}
-                className="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 shadow-xs"
+                className="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 shadow-sm shadow-indigo-600/20"
               >
                 保存账户
               </button>
@@ -461,7 +471,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
       {/* Add / Edit Member Modal */}
       {isMemberModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-5 space-y-4">
+          <div className="w-full max-w-md bg-white rounded-xl shadow-2xl border border-slate-200 p-5 space-y-4">
             <h3 className="text-sm font-bold text-slate-900">
               {editingMemberId ? '编辑成员' : '添加家庭成员'}
             </h3>
@@ -474,7 +484,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
                   value={memName}
                   onChange={(e) => setMemName(e.target.value)}
                   placeholder="例如：爸爸、妈妈、长辈、大宝等"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                 />
               </div>
 
@@ -483,7 +493,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
                 <select
                   value={memRelation}
                   onChange={(e) => setMemRelation(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                 >
                   <option value="father">爸爸 (Father)</option>
                   <option value="mother">妈妈 (Mother)</option>
@@ -512,7 +522,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
               </div>
             </div>
 
-            <div className="pt-2 flex justify-end gap-2">
+            <div className="pt-2 flex justify-end gap-2 border-t border-slate-100">
               <button
                 onClick={() => setIsMemberModalOpen(false)}
                 className="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100"
@@ -521,7 +531,7 @@ export const FamilyAccountsTab: React.FC<FamilyAccountsTabProps> = ({
               </button>
               <button
                 onClick={handleSaveMember}
-                className="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 shadow-xs"
+                className="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 shadow-sm shadow-indigo-600/20"
               >
                 保存成员
               </button>

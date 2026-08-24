@@ -77,7 +77,7 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Total Budget Card */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-5">
+      <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-xs space-y-5 hover:border-slate-300 transition-all">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
@@ -101,7 +101,7 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
               setTempCatBudgets(map);
               setIsEditingBudget(true);
             }}
-            className="px-4 py-2 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-semibold hover:bg-indigo-100 transition-colors flex items-center gap-1.5 self-start sm:self-auto"
+            className="px-4 py-2 bg-indigo-50 text-indigo-700 border border-indigo-200/80 rounded-xl text-xs font-semibold hover:bg-indigo-100 transition-colors flex items-center gap-1.5 self-start sm:self-auto active:scale-95"
           >
             <Edit3 size={14} /> 调整与设置预算
           </button>
@@ -110,15 +110,15 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
         {/* Progress Display */}
         <div className="space-y-2">
           <div className="flex items-baseline justify-between text-xs sm:text-sm font-mono">
-            <span className="text-slate-500">
-              已支出: <strong className="text-slate-900 text-base">{formatCurrency(totalSpent)}</strong>
+            <span className="text-slate-500 font-sans">
+              已支出: <strong className="text-slate-900 text-base font-mono">{formatCurrency(totalSpent)}</strong>
             </span>
-            <span className="text-slate-500">
-              总预算限额: <strong className="text-indigo-600 text-base">{formatCurrency(totalBudget)}</strong>
+            <span className="text-slate-500 font-sans">
+              总预算限额: <strong className="text-indigo-600 text-base font-mono">{formatCurrency(totalBudget)}</strong>
             </span>
           </div>
 
-          <div className="w-full bg-slate-100 h-3.5 rounded-full overflow-hidden p-0.5">
+          <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden p-0.5 border border-slate-200/50">
             <div
               className={`h-full rounded-full transition-all duration-500 ${
                 isOverTotal
@@ -149,13 +149,13 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
       </div>
 
       {/* Category Budgets Grid */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-xs space-y-4 hover:border-slate-300 transition-all">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-bold text-slate-800">各分类子预算明细</h3>
+            <h3 className="text-base font-bold text-slate-800">各分类子预算明细</h3>
             <p className="text-xs text-slate-400">针对餐饮、日用、交通等分别设立专项额度</p>
           </div>
-          <span className="text-xs text-slate-400">共 {expenseCategories.length} 个支出分类</span>
+          <span className="text-xs text-slate-400 font-medium">共 {expenseCategories.length} 个支出分类</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -169,12 +169,12 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
             return (
               <div
                 key={cat.id}
-                className="p-4 bg-slate-50/80 rounded-xl border border-slate-200/60 space-y-3 hover:bg-slate-50 transition-colors"
+                className="p-4 bg-slate-50/80 rounded-xl border border-slate-200/80 space-y-3 hover:bg-slate-100/60 transition-colors"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <div
-                      className="w-8 h-8 rounded-lg flex items-center justify-center text-white shadow-xs"
+                      className="w-8 h-8 rounded-lg flex items-center justify-center text-white shadow-2xs"
                       style={{ backgroundColor: cat.color }}
                     >
                       <CategoryIcon name={cat.icon} size={16} />
@@ -209,7 +209,7 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
                 {/* Progress bar */}
                 {catBudgetAmt > 0 ? (
                   <div className="space-y-1">
-                    <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                    <div className="w-full bg-slate-200/70 h-2 rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all ${
                           isOver ? 'bg-rose-500' : percent > 85 ? 'bg-amber-500' : 'bg-emerald-500'
@@ -219,7 +219,7 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
                     </div>
                     <div className="text-[11px] text-right">
                       {isOver ? (
-                        <span className="text-rose-600 font-medium">
+                        <span className="text-rose-600 font-medium font-mono">
                           超支 ¥{(spent - catBudgetAmt).toFixed(2)}
                         </span>
                       ) : (
@@ -241,8 +241,8 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
       {/* Edit Budget Modal */}
       {isEditingBudget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-100 flex flex-col max-h-[85vh] overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+          <div className="w-full max-w-lg bg-white rounded-xl shadow-2xl border border-slate-200 flex flex-col max-h-[85vh] overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
               <h3 className="font-bold text-slate-800 text-sm">设置 {selectedMonth} 预算方案</h3>
               <button
                 onClick={() => setIsEditingBudget(false)}
@@ -262,7 +262,7 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
                   type="number"
                   value={tempTotalBudget}
                   onChange={(e) => setTempTotalBudget(Number(e.target.value))}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-base font-bold font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-base font-bold font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                 />
               </div>
 
@@ -295,7 +295,7 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
                             }))
                           }
                           placeholder="0"
-                          className="w-28 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-xs font-mono text-right text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                          className="w-28 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-xs font-mono text-right text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
                         />
                       </div>
                     </div>
@@ -304,7 +304,7 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
               </div>
             </div>
 
-            <div className="px-5 py-3 border-t border-slate-100 bg-slate-50 flex items-center justify-end gap-2">
+            <div className="px-5 py-3 border-t border-slate-200 bg-slate-50 flex items-center justify-end gap-2">
               <button
                 onClick={() => setIsEditingBudget(false)}
                 className="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-200/60"
@@ -313,7 +313,7 @@ export const BudgetTab: React.FC<BudgetTabProps> = ({
               </button>
               <button
                 onClick={handleSaveBudget}
-                className="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 shadow-xs"
+                className="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 shadow-sm shadow-indigo-600/20"
               >
                 保存预算设置
               </button>

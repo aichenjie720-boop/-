@@ -84,20 +84,25 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-xs animate-fade-in"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-100 p-5 space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <div className="flex items-center gap-2">
-            <Download className="text-indigo-600" size={18} />
-            <h3 className="font-bold text-slate-800 text-base">数据备份与导出导入</h3>
+      <div className="w-full max-w-md bg-white rounded-xl shadow-2xl border border-slate-200 p-5 space-y-4">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <Download size={18} />
+            </div>
+            <div>
+              <h3 className="font-bold text-slate-800 text-base">数据备份与导出导入</h3>
+              <p className="text-xs text-slate-400">支持 CSV 表格及 JSON 完整快照备份</p>
+            </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 text-slate-400 hover:text-slate-600 rounded-lg"
+            className="p-1 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
           >
             <X size={18} />
           </button>
@@ -105,9 +110,9 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
 
         <div className="space-y-3 text-xs">
           {/* Option 1: CSV Export */}
-          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between hover:bg-slate-100/70 transition-colors">
+          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between hover:bg-slate-100/70 transition-colors">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
                 <FileSpreadsheet size={18} />
               </div>
               <div>
@@ -117,16 +122,16 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
             </div>
             <button
               onClick={handleExportCsv}
-              className="px-3 py-1.5 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 shadow-xs"
+              className="px-3 py-1.5 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 shadow-sm shadow-emerald-600/20 active:scale-95 transition-all"
             >
               导出表格
             </button>
           </div>
 
           {/* Option 2: JSON Backup */}
-          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between hover:bg-slate-100/70 transition-colors">
+          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between hover:bg-slate-100/70 transition-colors">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
                 <FileJson size={18} />
               </div>
               <div>
@@ -136,16 +141,16 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
             </div>
             <button
               onClick={handleExportJson}
-              className="px-3 py-1.5 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 shadow-xs"
+              className="px-3 py-1.5 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 shadow-sm shadow-indigo-600/20 active:scale-95 transition-all"
             >
               备份下载
             </button>
           </div>
 
           {/* Option 3: JSON Import */}
-          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between hover:bg-slate-100/70 transition-colors">
+          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between hover:bg-slate-100/70 transition-colors">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
                 <Upload size={18} />
               </div>
               <div>
@@ -163,7 +168,7 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
               />
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 shadow-xs"
+                className="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 shadow-sm shadow-blue-600/20 active:scale-95 transition-all"
               >
                 选择文件
               </button>
@@ -188,17 +193,17 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
                   onClose();
                 }
               }}
-              className="px-3 py-1.5 bg-rose-600 text-white rounded-lg font-semibold hover:bg-rose-700 shadow-xs"
+              className="px-3 py-1.5 bg-rose-600 text-white rounded-lg font-semibold hover:bg-rose-700 shadow-sm shadow-rose-600/20 active:scale-95 transition-all"
             >
               重置
             </button>
           </div>
         </div>
 
-        <div className="pt-2 flex justify-end">
+        <div className="pt-2 flex justify-end border-t border-slate-100">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-xl"
+            className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
           >
             完成
           </button>

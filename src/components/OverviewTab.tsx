@@ -171,96 +171,99 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
       {/* Top 5 Key Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {/* Card 1: Monthly Total Expense */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+        <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">本月总支出</span>
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">本月总支出</span>
             <div className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
-              <TrendingDown size={18} />
+              <TrendingDown size={17} />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold font-mono text-slate-900">
+            <div className="text-2xl font-bold font-mono text-slate-900 tracking-tight">
               {formatCurrency(monthlyExpense)}
             </div>
-            <div className="text-xs text-slate-400 mt-1 flex items-center gap-1">
+            <div className="text-xs text-slate-400 mt-1 flex items-center gap-1.5 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" />
               <span>共 {monthTxs.filter((t) => t.type === 'expense').length} 笔支出</span>
             </div>
           </div>
         </div>
 
         {/* Card 2: Monthly Total Income */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+        <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">本月总收入</span>
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">本月总收入</span>
             <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <TrendingUp size={18} />
+              <TrendingUp size={17} />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold font-mono text-slate-900">
+            <div className="text-2xl font-bold font-mono text-slate-900 tracking-tight">
               {formatCurrency(monthlyIncome)}
             </div>
-            <div className="text-xs text-slate-400 mt-1 flex items-center gap-1">
+            <div className="text-xs text-slate-400 mt-1 flex items-center gap-1.5 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
               <span>共 {monthTxs.filter((t) => t.type === 'income').length} 笔收入</span>
             </div>
           </div>
         </div>
 
         {/* Card 3: Monthly Net Balance */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+        <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">本月结余</span>
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">本月结余</span>
             <div
               className={`w-8 h-8 rounded-lg flex items-center justify-center ${
                 monthlyBalance >= 0 ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'
               }`}
             >
-              <Wallet size={18} />
+              <Wallet size={17} />
             </div>
           </div>
           <div className="mt-3">
             <div
-              className={`text-2xl font-bold font-mono ${
+              className={`text-2xl font-bold font-mono tracking-tight ${
                 monthlyBalance >= 0 ? 'text-emerald-600' : 'text-rose-600'
               }`}
             >
               {formatCurrency(monthlyBalance, true)}
             </div>
-            <div className="text-xs text-slate-500 mt-1">
-              结余率: <span className="font-semibold">{savingsRate.toFixed(1)}%</span>
+            <div className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+              <span>结余率:</span>
+              <span className="font-bold text-slate-700">{savingsRate.toFixed(1)}%</span>
             </div>
           </div>
         </div>
 
         {/* Card 4: Daily Average */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+        <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">日均支出</span>
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">日均支出</span>
             <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-              <Calendar size={18} />
+              <Calendar size={17} />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold font-mono text-slate-900">
+            <div className="text-2xl font-bold font-mono text-slate-900 tracking-tight">
               {formatCurrency(dailyAverageExpense)}
             </div>
             <div className="text-xs text-slate-400 mt-1">
-              按本月当前天数折算
+              按本月实际天数折算
             </div>
           </div>
         </div>
 
         {/* Card 5: Budget Status */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+        <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">预算进度</span>
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">预算进度</span>
             <span
-              className={`text-[11px] font-bold px-2 py-0.5 rounded-md ${
+              className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                 isOverBudget
-                  ? 'bg-rose-100 text-rose-700'
+                  ? 'bg-rose-50 text-rose-700 border border-rose-200'
                   : budgetSpentPercent > 80
-                  ? 'bg-amber-100 text-amber-700'
-                  : 'bg-emerald-100 text-emerald-700'
+                  ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                  : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
               }`}
             >
               {budgetSpentPercent.toFixed(0)}%
@@ -285,7 +288,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
             </div>
             <div className="text-[11px] text-slate-400 mt-1.5">
               {isOverBudget ? (
-                <span className="text-rose-600 font-medium">已超支 ¥{(monthlyExpense - totalBudget).toFixed(0)}</span>
+                <span className="text-rose-600 font-semibold">已超支 ¥{(monthlyExpense - totalBudget).toFixed(0)}</span>
               ) : (
                 <span>剩余可用 ¥{budgetRemaining.toFixed(0)}</span>
               )}
@@ -317,19 +320,19 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
       {/* Charts Row: Trend Area Chart & Category Doughnut */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Daily Trend Area Chart */}
-        <div className="lg:col-span-2 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs">
+        <div className="lg:col-span-2 bg-white rounded-xl p-5 border border-slate-200 shadow-xs hover:border-slate-300 transition-all">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-bold text-slate-800">每日收支走势分析</h3>
               <p className="text-xs text-slate-400">{year}年{month}月 每日流水起伏趋势</p>
             </div>
             <div className="flex items-center gap-3 text-xs">
-              <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-xs bg-rose-500 inline-block" />
+              <div className="flex items-center gap-1.5 font-medium">
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block" />
                 <span className="text-slate-600">支出</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-xs bg-emerald-500 inline-block" />
+              <div className="flex items-center gap-1.5 font-medium">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
                 <span className="text-slate-600">收入</span>
               </div>
             </div>
@@ -340,11 +343,11 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
               <AreaChart data={dailyChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="expenseGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#F43F5E" stopOpacity={0.4} />
+                    <stop offset="5%" stopColor="#F43F5E" stopOpacity={0.35} />
                     <stop offset="95%" stopColor="#F43F5E" stopOpacity={0.0} />
                   </linearGradient>
                   <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10B981" stopOpacity={0.4} />
+                    <stop offset="5%" stopColor="#10B981" stopOpacity={0.35} />
                     <stop offset="95%" stopColor="#10B981" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
@@ -354,11 +357,12 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
                   formatter={(val: any) => [formatCurrency(Number(val)), '']}
                   labelFormatter={(label) => `${selectedMonth}-${label}`}
                   contentStyle={{
-                    backgroundColor: '#1E293B',
+                    backgroundColor: '#0F172A',
                     color: '#FFF',
-                    borderRadius: '10px',
+                    borderRadius: '8px',
                     fontSize: '12px',
                     border: 'none',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   }}
                 />
                 <Area
@@ -385,7 +389,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
         </div>
 
         {/* Category Breakdown Doughnut Chart */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col">
+        <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs flex flex-col hover:border-slate-300 transition-all">
           <div className="flex items-center justify-between mb-2">
             <div>
               <h3 className="text-sm font-bold text-slate-800">支出类别结构</h3>
@@ -425,17 +429,18 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
                     <Tooltip
                       formatter={(val: any) => [formatCurrency(Number(val)), '金额']}
                       contentStyle={{
-                        backgroundColor: '#1E293B',
+                        backgroundColor: '#0F172A',
                         color: '#FFF',
                         borderRadius: '8px',
                         fontSize: '12px',
+                        border: 'none',
                       }}
                     />
                   </RePieChart>
                 </ResponsiveContainer>
                 {/* Center text in doughnut */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <span className="text-[10px] text-slate-400">总支出</span>
+                  <span className="text-[10px] uppercase font-semibold text-slate-400">总支出</span>
                   <span className="text-xs font-bold font-mono text-slate-800">
                     {formatCompactCurrency(monthlyExpense)}
                   </span>
@@ -445,9 +450,9 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
               {/* Category Ranking List */}
               <div className="space-y-2 mt-2 max-h-40 overflow-y-auto pr-1">
                 {categoryChartData.slice(0, 4).map((item) => (
-                  <div key={item.id} className="flex items-center justify-between text-xs">
+                  <div key={item.id} className="flex items-center justify-between text-xs py-0.5">
                     <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
+                      <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
                       <span className="text-slate-700 font-medium">{item.name}</span>
                     </div>
                     <div className="flex items-center gap-2 font-mono">
@@ -467,7 +472,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
       {/* Two Columns: Family Member Contribution & Recent Transactions */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Family Member Spending Share */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs">
+        <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs hover:border-slate-300 transition-all">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-bold text-slate-800">家庭成员开支归属</h3>
@@ -518,7 +523,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
         </div>
 
         {/* Recent Transactions List */}
-        <div className="lg:col-span-2 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-white rounded-xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-all">
           <div>
             <div className="flex items-center justify-between mb-3">
               <div>
@@ -539,7 +544,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
                   <p className="text-xs mb-3">本月还没有记账哦</p>
                   <button
                     onClick={onOpenNewTransaction}
-                    className="px-3.5 py-1.5 text-xs bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 inline-flex items-center gap-1"
+                    className="px-3.5 py-1.5 text-xs bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 inline-flex items-center gap-1 font-semibold"
                   >
                     <Plus size={14} /> 立即记第一笔
                   </button>
@@ -554,17 +559,17 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
                   return (
                     <div
                       key={t.id}
-                      className="py-3 flex items-center justify-between hover:bg-slate-50/70 -mx-2 px-2 rounded-xl transition-colors group"
+                      className="py-3 flex items-center justify-between hover:bg-slate-50/80 -mx-2 px-2 rounded-xl transition-colors group"
                     >
                       <div className="flex items-center gap-3">
                         <div
-                          className="w-10 h-10 rounded-xl flex items-center justify-center text-white shrink-0 shadow-xs"
+                          className="w-10 h-10 rounded-xl flex items-center justify-center text-white shrink-0 shadow-2xs"
                           style={{
                             backgroundColor:
                               t.type === 'transfer' ? '#6366F1' : cat?.color || '#94A3B8',
                           }}
                         >
-                          <CategoryIcon name={cat?.icon || 'CircleDot'} size={20} />
+                          <CategoryIcon name={cat?.icon || 'CircleDot'} size={18} />
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
@@ -574,12 +579,12 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
                                 : cat?.name || '未分类'}
                             </span>
                             {t.subCategory && (
-                              <span className="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
+                              <span className="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-medium">
                                 {t.subCategory}
                               </span>
                             )}
                             <span
-                              className="text-[10px] px-1.5 py-0.2 rounded-md font-medium"
+                              className="text-[10px] px-2 py-0.5 rounded-full font-medium"
                               style={{
                                 backgroundColor: `${mem?.avatarColor}15`,
                                 color: mem?.avatarColor,

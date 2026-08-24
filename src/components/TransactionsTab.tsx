@@ -177,7 +177,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
   return (
     <div className="space-y-4">
       {/* Search & Filter Bar */}
-      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs space-y-3">
+      <div className="bg-white rounded-xl p-4 sm:p-5 border border-slate-200 shadow-xs space-y-3">
         {/* Quick Filter Row */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {/* Keyword Search Input */}
@@ -189,7 +189,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
               value={filters.searchKeyword}
               onChange={(e) => setFilters((prev) => ({ ...prev, searchKeyword: e.target.value }))}
               placeholder="搜索备注、二级明细、标签或分类..."
-              className="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-slate-400"
+              className="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 focus:bg-white placeholder-slate-400 transition-all"
             />
             {filters.searchKeyword && (
               <button
@@ -202,7 +202,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
           </div>
 
           {/* Type Switcher */}
-          <div className="flex bg-slate-100 p-1 rounded-xl shrink-0">
+          <div className="flex bg-slate-100 p-1 rounded-xl shrink-0 border border-slate-200/60">
             {(['all', 'expense', 'income', 'transfer'] as const).map((t) => {
               const labels = { all: '全部', expense: '支出', income: '收入', transfer: '转账' };
               const isSelected = filters.type === t;
@@ -211,10 +211,10 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
                   key={t}
                   id={`filter-type-${t}`}
                   onClick={() => setFilters((prev) => ({ ...prev, type: t }))}
-                  className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
+                  className={`px-3 py-1 text-xs rounded-lg transition-all ${
                     isSelected
-                      ? 'bg-white text-slate-900 shadow-xs font-semibold'
-                      : 'text-slate-600 hover:text-slate-900'
+                      ? 'bg-white text-indigo-700 shadow-xs font-bold'
+                      : 'text-slate-600 hover:text-slate-900 font-medium'
                   }`}
                 >
                   {labels[t]}
@@ -229,28 +229,28 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
               onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
               className={`px-3 py-2 rounded-xl text-xs font-medium border transition-all flex items-center gap-1.5 ${
                 showAdvancedFilters || hasActiveFilters
-                  ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
-                  : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                  ? 'border-indigo-600 bg-indigo-50 text-indigo-700 font-semibold'
+                  : 'border-slate-200 text-slate-700 hover:bg-slate-50 bg-white'
               }`}
             >
               <Filter size={14} />
               <span>筛选</span>
               {hasActiveFilters && (
-                <span className="w-2 h-2 rounded-full bg-indigo-600 inline-block" />
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 inline-block" />
               )}
             </button>
 
             <button
               onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
               title={sortOrder === 'desc' ? '按时间倒序' : '按时间正序'}
-              className="p-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              className="p-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 bg-white transition-colors"
             >
               <ArrowUpDown size={15} />
             </button>
 
             <button
               onClick={onOpenNewTransaction}
-              className="bg-indigo-600 text-white px-3.5 py-2 rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-1 shrink-0"
+              className="bg-indigo-600 text-white px-3.5 py-2 rounded-xl text-xs font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-1 shrink-0 active:scale-95 shadow-sm shadow-indigo-600/20"
             >
               <Plus size={15} /> 记一笔
             </button>
@@ -262,13 +262,13 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
           <div className="pt-3 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
             {/* Category Filter */}
             <div>
-              <label className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-1">
+              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
                 分类筛选
               </label>
               <select
                 value={filters.categoryId}
                 onChange={(e) => setFilters((prev) => ({ ...prev, categoryId: e.target.value }))}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               >
                 <option value="all">全部分类</option>
                 {categories.map((c) => (
@@ -281,13 +281,13 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
 
             {/* Member Filter */}
             <div>
-              <label className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-1">
+              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
                 家庭成员
               </label>
               <select
                 value={filters.memberId}
                 onChange={(e) => setFilters((prev) => ({ ...prev, memberId: e.target.value }))}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               >
                 <option value="all">全部成员</option>
                 {members.map((m) => (
@@ -300,13 +300,13 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
 
             {/* Account Filter */}
             <div>
-              <label className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-1">
+              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
                 支付账户
               </label>
               <select
                 value={filters.accountId}
                 onChange={(e) => setFilters((prev) => ({ ...prev, accountId: e.target.value }))}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               >
                 <option value="all">全部账户</option>
                 {accounts.map((a) => (
@@ -319,7 +319,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
 
             {/* Date Range Start & End */}
             <div>
-              <label className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-1">
+              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
                 起止日期
               </label>
               <div className="flex items-center gap-1">
@@ -355,7 +355,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
       </div>
 
       {/* Filter Stats & Batch Operations Bar */}
-      <div className="bg-white rounded-2xl p-3.5 px-5 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div className="bg-white rounded-xl p-3.5 px-5 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-4 text-xs">
           <div className="flex items-center gap-2">
             <button
@@ -397,7 +397,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
           {selectedIds.length > 0 && (
             <button
               onClick={handleBatchDelete}
-              className="px-3 py-1.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-xl text-xs font-semibold hover:bg-rose-100 transition-colors flex items-center gap-1"
+              className="px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors"
             >
               <Trash2 size={13} /> 批量删除 ({selectedIds.length})
             </button>
@@ -405,7 +405,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
 
           <button
             onClick={handleExportFilteredCsv}
-            className="px-3 py-1.5 bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-semibold hover:bg-slate-200 transition-colors flex items-center gap-1"
+            className="px-3 py-1.5 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors"
           >
             <Download size={13} /> 导出当前结果 (CSV)
           </button>
@@ -414,19 +414,19 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
 
       {/* Date-Grouped Transaction List */}
       {Object.keys(groupedByDate).length === 0 ? (
-        <div className="bg-white rounded-2xl p-12 text-center border border-slate-200/80 shadow-xs">
+        <div className="bg-white rounded-xl p-12 text-center border border-slate-200 shadow-xs">
           <Layers className="mx-auto text-slate-300 mb-3" size={40} />
           <h4 className="text-sm font-bold text-slate-700 mb-1">未检索到相关流水账目</h4>
           <p className="text-xs text-slate-400 mb-4">可以尝试更改筛选条件或添加新的一笔收支</p>
           <button
             onClick={onOpenNewTransaction}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700"
+            className="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 shadow-sm shadow-indigo-600/20"
           >
             记一笔账
           </button>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {(Object.entries(groupedByDate) as [string, Transaction[]][]).map(([dateStr, items]) => {
             const dayExp = items
               .filter((t) => t.type === 'expense')
@@ -438,10 +438,10 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
             return (
               <div
                 key={dateStr}
-                className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden"
+                className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden hover:border-slate-300 transition-all"
               >
                 {/* Date Group Header */}
-                <div className="bg-slate-50/80 px-4 py-2.5 border-b border-slate-100 flex items-center justify-between text-xs">
+                <div className="bg-slate-50/90 px-4 py-2.5 border-b border-slate-200/80 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">
                     <Calendar size={14} className="text-slate-400" />
                     <span className="font-bold text-slate-800">{formatDateChinese(dateStr)}</span>
@@ -473,7 +473,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
                     return (
                       <div
                         key={tx.id}
-                        className={`p-3.5 sm:px-4 flex items-center justify-between hover:bg-slate-50/60 transition-colors group ${
+                        className={`p-3.5 sm:px-4 flex items-center justify-between hover:bg-slate-50/80 transition-colors group ${
                           isSelected ? 'bg-indigo-50/40' : ''
                         }`}
                       >
@@ -490,13 +490,13 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
                           </button>
 
                           <div
-                            className="w-10 h-10 rounded-xl flex items-center justify-center text-white shrink-0 shadow-xs"
+                            className="w-10 h-10 rounded-xl flex items-center justify-center text-white shrink-0 shadow-2xs"
                             style={{
                               backgroundColor:
                                 tx.type === 'transfer' ? '#6366F1' : cat?.color || '#94A3B8',
                             }}
                           >
-                            <CategoryIcon name={cat?.icon || 'CircleDot'} size={20} />
+                            <CategoryIcon name={cat?.icon || 'CircleDot'} size={18} />
                           </div>
 
                           <div>
@@ -508,13 +508,13 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
                               </span>
 
                               {tx.subCategory && (
-                                <span className="text-[11px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-medium">
+                                <span className="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-medium">
                                   {tx.subCategory}
                                 </span>
                               )}
 
                               <span
-                                className="text-[10px] px-1.5 py-0.5 rounded-md font-medium"
+                                className="text-[10px] px-2 py-0.5 rounded-full font-medium"
                                 style={{
                                   backgroundColor: `${mem?.avatarColor}15`,
                                   color: mem?.avatarColor,
