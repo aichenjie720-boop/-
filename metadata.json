@@ -1,0 +1,6 @@
+{
+  "name": "家庭记账管家",
+  "description": "专业家庭日常收支与预算管理系统，支持多成员协同记录、账户管理、分类统计与多维度时间可视化图表分析。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
